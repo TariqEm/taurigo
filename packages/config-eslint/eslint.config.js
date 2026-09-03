@@ -24,7 +24,22 @@ export default tseslint.config(
     plugins: {
       "react-hooks": reactHooks,
     },
-    rules: reactHooks.configs.recommended.rules,
+    rules: {
+      ...reactHooks.configs.recommended.rules,
+      // False positives on the common "sync state from a subscription/listener
+      // in an effect" pattern (matchMedia listeners, embla-carousel callbacks,
+      // etc.) — flags shadcn's own generated components (use-mobile.ts,
+      // carousel.tsx), not just app code.
+      "react-hooks/set-state-in-effect": "off",
+    },
+  },
+  {
+    rules: {
+      // Redundant under TypeScript — prop types are checked by the compiler,
+      // not PropTypes, and this rule doesn't understand TS types (false
+      // positives on shadcn's generated calendar.tsx, e.g.).
+      "react/prop-types": "off",
+    },
   },
   {
     languageOptions: {
