@@ -1,0 +1,52 @@
+# dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# build output
+dist/
+build/
+target/
+.vite/
+apps/desktop/src-tauri/gen/
+
+# env
+.env
+.env.*
+!.env.example
+
+# db
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+
+# turbo
+.turbo/
+
+# python
+.venv/
+__pycache__/
+*.pyc
+
+# go
+apps/sidecar/sidecar
+apps/sidecar/*.exe
+
+# logs
+*.log
+npm-debug.log*
+
+# editor/os
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# markdown docs — only README.md is tracked
+*.md
+!README.md
+
+# Claude Code project setup — kept local, not pushed
+.claude/
+.mcp.json
