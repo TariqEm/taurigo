@@ -1,0 +1,5 @@
+<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Taurigo mark">
+  <rect x="8" y="8" width="240" height="240" rx="56" fill="#4f46e5"/>
+  <rect x="64" y="72" width="128" height="26" rx="8" fill="#ffffff"/>
+  <rect x="115" y="72" width="26" height="112" rx="8" fill="#ffffff"/>
+</svg>

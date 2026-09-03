@@ -1,0 +1,5 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Taurigo app icon">
+  <rect x="32" y="32" width="960" height="960" rx="224" fill="#4f46e5"/>
+  <rect x="256" y="288" width="512" height="104" rx="32" fill="#ffffff"/>
+  <rect x="460" y="288" width="104" height="448" rx="32" fill="#ffffff"/>
+</svg>
