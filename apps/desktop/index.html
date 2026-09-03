@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Taurigo</title>
+    <!--
+      Blocking no-flash theme script — mirrors @taurigo/ui's themeNoFlashScript()
+      (packages/ui/src/theme/no-flash-script.ts). Kept as a literal inline script
+      because it must run before the React bundle loads; duplicated by hand since
+      index.html can't import a TS module pre-bundle. Keep the storage key
+      ("taurigo-theme") in sync with THEME_STORAGE_KEY if that ever changes.
+    -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("taurigo-theme");
+          var d = t === "dark" || (t !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+          document.documentElement.classList.toggle("dark", d);
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
