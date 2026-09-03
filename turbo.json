@@ -20,6 +20,10 @@
     "typecheck": {
       "dependsOn": ["^build"],
       "outputs": []
+    },
+    "generate": {
+      "cache": false,
+      "outputs": ["src/bindings.ts"]
     }
   }
 }

@@ -1,0 +1,19 @@
+{
+  "name": "@taurigo/types",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    "./bindings": "./src/bindings.ts"
+  },
+  "scripts": {
+    "generate": "echo 'TODO(Phase 9): export types via tauri-specta and write src/bindings.ts' && exit 1",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@taurigo/typescript-config": "*",
+    "@types/node": "catalog:",
+    "typescript": "catalog:"
+  }
+}

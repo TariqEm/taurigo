@@ -38,6 +38,15 @@
       "name": "@taurigo/typescript-config",
       "version": "0.0.0",
     },
+    "packages/types": {
+      "name": "@taurigo/types",
+      "version": "0.0.0",
+      "devDependencies": {
+        "@taurigo/typescript-config": "*",
+        "@types/node": "catalog:",
+        "typescript": "catalog:",
+      },
+    },
     "packages/ui": {
       "name": "@taurigo/ui",
       "version": "0.0.0",
@@ -499,6 +508,8 @@
     "@taurigo/brand": ["@taurigo/brand@workspace:packages/brand"],
 
     "@taurigo/eslint-config": ["@taurigo/eslint-config@workspace:packages/config-eslint"],
+
+    "@taurigo/types": ["@taurigo/types@workspace:packages/types"],
 
     "@taurigo/typescript-config": ["@taurigo/typescript-config@workspace:packages/config-typescript"],
 

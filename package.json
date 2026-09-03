@@ -45,6 +45,7 @@
     "lint": "turbo run lint",
     "test": "turbo run test",
     "typecheck": "turbo run typecheck",
+    "gen:bindings": "turbo run generate --filter=@taurigo/types",
     "prepare": "husky"
   }
 }
