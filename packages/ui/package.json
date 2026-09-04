@@ -9,10 +9,12 @@
     "./postcss.config": "./postcss.config.mjs",
     ".": "./src/index.ts",
     "./theme": "./src/theme/index.ts",
-    "./*": [
-      "./src/*.ts",
-      "./src/*.tsx"
-    ]
+    "./theme/constants": "./src/theme/constants.ts",
+    "./theme/no-flash-script": "./src/theme/no-flash-script.ts",
+    "./theme/theme-provider": "./src/theme/theme-provider.tsx",
+    "./components/ui/*": "./src/components/ui/*.tsx",
+    "./hooks/*": "./src/hooks/*.ts",
+    "./lib/*": "./src/lib/*.ts"
   },
   "scripts": {
     "lint": "eslint .",
