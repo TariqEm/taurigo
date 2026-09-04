@@ -1,10 +1,8 @@
 {
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "default",
-  "description": "enables the default permissions, plus window chrome controls and native dialogs for the main window. NOTE: shell:allow-execute (scoped to just the sidecar binary) is added in Phase 7 once the Go sidecar exists — do not add it before then.",
-  "windows": [
-    "main"
-  ],
+  "description": "enables the default permissions, plus window chrome controls, native dialogs for the main window, and a scoped shell:allow-execute grant for the Go sidecar binary (Phase 7).",
+  "windows": ["main"],
   "permissions": [
     "core:default",
     "core:window:allow-close",
@@ -17,6 +15,15 @@
     "core:window:allow-set-focus",
     "core:window:allow-set-fullscreen",
     "core:window:allow-start-dragging",
-    "dialog:default"
+    "dialog:default",
+    {
+      "identifier": "shell:allow-execute",
+      "allow": [
+        {
+          "name": "binaries/sidecar",
+          "sidecar": true
+        }
+      ]
+    }
   ]
 }

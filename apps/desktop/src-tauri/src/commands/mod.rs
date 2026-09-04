@@ -2,3 +2,4 @@
 //! call into `services/`, map the result to a response — no business logic here.
 
 pub mod settings;
+pub mod sidecar;

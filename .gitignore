@@ -32,6 +32,7 @@ __pycache__/
 # go
 apps/sidecar/sidecar
 apps/sidecar/*.exe
+apps/desktop/src-tauri/binaries/
 
 # logs
 *.log

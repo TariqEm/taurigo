@@ -23,7 +23,7 @@ serde = { version = "1.0", features = ["derive"] }
 log = "0.4"
 tauri = { version = "2.11.3", features = ["tray-icon"] }
 tauri-plugin-log = "2"
-tokio = { version = "1.53.1", features = ["rt-multi-thread", "macros"] }
+tokio = { version = "1.53.1", features = ["rt-multi-thread", "macros", "time"] }
 rusqlite = { version = "0.40.2", features = ["bundled"] }
 r2d2 = "0.8.10"
 r2d2_sqlite = { version = "0.35.0", features = ["bundled"] }
@@ -32,3 +32,13 @@ tauri-plugin-shell = "2.3.6"
 tauri-plugin-store = "2.4.4"
 tauri-plugin-updater = "2.11.0"
 tauri-plugin-dialog = "2.7.3"
+# Rust -> Go sidecar loopback HTTP calls (Phase 7.5/7.8). `json` for the
+# `/health` response body; no other reqwest features needed since this never
+# leaves 127.0.0.1.
+reqwest = { version = "0.13", default-features = false, features = ["json"] }
+# reqwest is unified (by cargo's feature resolution) with tauri-plugin-updater's
+# rustls-backed reqwest, so building *any* reqwest client — even for a plain
+# http:// request — needs a rustls crypto provider installed process-wide first
+# (rustls 0.23+). `ring` is already pulled in transitively; depending on it
+# directly just lets us call `install_default()` once in `lib.rs`.
+rustls = { version = "0.23", default-features = false, features = ["ring"] }

@@ -1,0 +1,10 @@
+{
+  "name": "@taurigo/sidecar",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "bash scripts/build.sh",
+    "test": "go test ./...",
+    "lint": "test -z \"$(gofmt -l .)\" && go vet ./..."
+  }
+}

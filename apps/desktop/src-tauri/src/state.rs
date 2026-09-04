@@ -4,19 +4,23 @@
 use std::path::PathBuf;
 use std::sync::Mutex;
 
+use tauri_plugin_shell::process::CommandChild;
+
 use crate::db::DbPool;
 
-/// Placeholder for the Go sidecar's process handle + base URL.
+/// The Go sidecar's process handle + base URL, owned by `src/sidecar/manager.rs`.
 ///
-/// Phase 7 replaces this with real process management in `src/sidecar/`: spawning
-/// via `tauri-plugin-shell`'s `Command::sidecar`, reading the port handshake, and
-/// restarting the process if it exits unexpectedly. For now this just reserves the
-/// `AppState` slot so later phases don't need to touch the state shape.
+/// `base_url` is `None` until the startup handshake (`PORT=<port>` on stdout) has
+/// been read, and is cleared again whenever the process exits (see
+/// `sidecar::manager::run_supervised`) so callers never see a stale URL for a dead
+/// process. `child` is kept around so the app can kill the process on shutdown —
+/// it isn't tracked by `tauri-plugin-shell`'s own child registry because we spawn
+/// it directly from Rust (`Shell::sidecar`) rather than via the JS-facing
+/// `shell:spawn` command.
 #[derive(Debug, Default)]
 pub struct SidecarHandle {
-    // Unused until Phase 7 wires up real sidecar spawning + a port handshake.
-    #[allow(dead_code)]
     pub base_url: Option<String>,
+    pub child: Option<CommandChild>,
 }
 
 /// App-wide configuration resolved once at startup.

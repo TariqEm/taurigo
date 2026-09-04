@@ -2,6 +2,7 @@ mod commands;
 mod db;
 mod menu;
 mod services;
+mod sidecar;
 mod state;
 mod tray;
 
@@ -11,6 +12,13 @@ use state::{AppConfig, AppState};
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
+    // reqwest (used for the sidecar health round-trip in `services::sidecar`, and
+    // transitively by `tauri-plugin-updater`) is built against rustls, which since
+    // 0.23 requires a crypto provider installed process-wide before any client can
+    // be built — even for a plain loopback `http://` request. `.ok()`: an `Err`
+    // just means something else installed one first, which is fine.
+    let _ = rustls::crypto::ring::default_provider().install_default();
+
     tauri::Builder::default()
         .plugin(tauri_plugin_shell::init())
         .plugin(tauri_plugin_dialog::init())
@@ -42,9 +50,26 @@ pub fn run() {
             app.set_menu(app_menu)?;
             tray::build(app.handle())?;
 
+            // Go sidecar (7.5): spawn + supervise for the lifetime of the app. Reads
+            // its `PORT=` handshake and stores the base URL on `AppState`; restarts
+            // it (bounded) if it exits unexpectedly.
+            sidecar::spawn_supervised(app.handle());
+
             Ok(())
         })
-        .invoke_handler(tauri::generate_handler![commands::settings::ping])
-        .run(tauri::generate_context!())
-        .expect("error while running tauri application");
+        .invoke_handler(tauri::generate_handler![
+            commands::settings::ping,
+            commands::sidecar::sidecar_health
+        ])
+        .build(tauri::generate_context!())
+        .expect("error while building tauri application")
+        .run(|app_handle, event| {
+            // The sidecar is spawned directly from Rust rather than via
+            // `tauri-plugin-shell`'s JS-facing `spawn` command, so it isn't in the
+            // plugin's own child registry that it auto-kills on exit — kill it
+            // ourselves so it doesn't linger as an orphan process.
+            if let tauri::RunEvent::Exit = event {
+                sidecar::kill_on_exit(app_handle);
+            }
+        });
 }

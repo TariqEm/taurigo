@@ -2,3 +2,4 @@
 //! (per `CLAUDE.md`'s commands -> services -> db layering).
 
 pub mod settings;
+pub mod sidecar;
