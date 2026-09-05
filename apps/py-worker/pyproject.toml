@@ -1,0 +1,7 @@
+[project]
+name = "py-worker"
+version = "0.1.0"
+description = "Dev-only Python scripts for ML/data-heavy work (Phase 8 Track A) — run via uv run, never bundled into the shipped app."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []

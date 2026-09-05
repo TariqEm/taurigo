@@ -71,7 +71,7 @@ bun run tauri dev   # from apps/desktop, once Phase 6 scaffolds the Tauri shell
 
 - `apps/desktop` — the Tauri shell (`src/` React frontend, `src-tauri/` Rust core).
 - `apps/sidecar` — Go binary spawned by Rust as a Tauri sidecar (loopback HTTP, OS-assigned port).
-- `apps/py-worker` — optional Python sidecar for ML/data work.
+- `apps/py-worker` — dev-only Python scripts for ML/data work (Track A), run via `uv run`.
 - `packages/ui` — shared shadcn-based components (`@taurigo/ui`), presentational only.
 - `packages/types` — TypeScript types generated from Rust via `tauri-specta` — never
   hand-edit `bindings.ts`, regenerate with `bun run gen:bindings`.
