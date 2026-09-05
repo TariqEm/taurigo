@@ -10,8 +10,21 @@ use tauri::Manager;
 
 use state::{AppConfig, AppState};
 
+/// Builds the `tauri-specta` command collection shared between `run()`'s
+/// `invoke_handler` and the headless TypeScript export in `main.rs` (behind the
+/// `export-bindings` feature) — keeping both in sync so the exported bindings can
+/// never drift from the commands actually registered with Tauri.
+pub fn specta_builder() -> tauri_specta::Builder<tauri::Wry> {
+    tauri_specta::Builder::<tauri::Wry>::new().commands(tauri_specta::collect_commands![
+        commands::settings::ping,
+        commands::sidecar::sidecar_health
+    ])
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
+    let specta_builder = specta_builder();
+
     // reqwest (used for the sidecar health round-trip in `services::sidecar`, and
     // transitively by `tauri-plugin-updater`) is built against rustls, which since
     // 0.23 requires a crypto provider installed process-wide before any client can
@@ -57,10 +70,7 @@ pub fn run() {
 
             Ok(())
         })
-        .invoke_handler(tauri::generate_handler![
-            commands::settings::ping,
-            commands::sidecar::sidecar_health
-        ])
+        .invoke_handler(specta_builder.invoke_handler())
         .build(tauri::generate_context!())
         .expect("error while building tauri application")
         .run(|app_handle, event| {

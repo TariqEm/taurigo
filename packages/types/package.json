@@ -5,11 +5,15 @@
   "license": "MIT",
   "type": "module",
   "exports": {
+    ".": "./src/index.ts",
     "./bindings": "./src/bindings.ts"
   },
   "scripts": {
-    "generate": "echo 'TODO(Phase 9): export types via tauri-specta and write src/bindings.ts' && exit 1",
+    "generate": "cargo run --quiet --manifest-path ../../apps/desktop/src-tauri/Cargo.toml --features export-bindings && bunx prettier --write src/bindings.ts",
     "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^2.11.1"
   },
   "devDependencies": {
     "@taurigo/typescript-config": "*",

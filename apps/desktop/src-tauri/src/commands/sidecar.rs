@@ -6,10 +6,10 @@
 //! verification) since it's a genuinely useful health probe for the frontend
 //! later (e.g. a status indicator), and costs nothing to keep.
 //!
-//! Note: like `commands::settings::PingResponse`, these types intentionally
-//! don't derive `specta::Type` yet — this crate doesn't depend on `specta`/
-//! `tauri-specta` until Phase 9. Add the derive and regenerate bindings
-//! (`bun run gen:bindings` / `/gen-bindings`) once that phase lands.
+//! Like `commands::settings::PingResponse`, `SidecarHealthResponse` derives
+//! `specta::Type` alongside its `serde` derives so `tauri-specta` can generate a
+//! TypeScript binding for it (Phase 9, see `CLAUDE.md`) — run
+//! `bun run gen:bindings` / `/gen-bindings` after changing it.
 
 use serde::{Deserialize, Serialize};
 use tauri::State;
@@ -17,7 +17,7 @@ use tauri::State;
 use crate::services::sidecar as sidecar_service;
 use crate::state::AppState;
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, specta::Type)]
 pub struct SidecarHealthResponse {
     pub status: String,
 }
@@ -26,6 +26,7 @@ pub struct SidecarHealthResponse {
 /// supervisor (`src/sidecar/manager.rs`) recorded on `AppState` after reading
 /// the process's startup port handshake.
 #[tauri::command]
+#[specta::specta]
 pub async fn sidecar_health(state: State<'_, AppState>) -> Result<SidecarHealthResponse, String> {
     let base_url = state
         .sidecar

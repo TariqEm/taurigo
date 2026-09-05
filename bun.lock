@@ -9,6 +9,7 @@
         "@commitlint/config-conventional": "^21.2.2",
         "@tauri-apps/cli": "^2.11.4",
         "husky": "^9.1.7",
+        "prettier": "^3.9.6",
         "turbo": "^2.10.12",
         "typescript": "catalog:",
       },
@@ -35,6 +36,10 @@
         "typescript": "catalog:",
         "vite": "catalog:",
       },
+    },
+    "apps/sidecar": {
+      "name": "@taurigo/sidecar",
+      "version": "0.0.0",
     },
     "packages/brand": {
       "name": "@taurigo/brand",
@@ -64,6 +69,9 @@
     "packages/types": {
       "name": "@taurigo/types",
       "version": "0.0.0",
+      "dependencies": {
+        "@tauri-apps/api": "^2.11.1",
+      },
       "devDependencies": {
         "@taurigo/typescript-config": "*",
         "@types/node": "catalog:",
@@ -543,6 +551,8 @@
     "@taurigo/desktop": ["@taurigo/desktop@workspace:apps/desktop"],
 
     "@taurigo/eslint-config": ["@taurigo/eslint-config@workspace:packages/config-eslint"],
+
+    "@taurigo/sidecar": ["@taurigo/sidecar@workspace:apps/sidecar"],
 
     "@taurigo/types": ["@taurigo/types@workspace:packages/types"],
 
@@ -1289,6 +1299,8 @@
     "powershell-utils": ["powershell-utils@0.2.1", "", {}, "sha512-C+y9x90UElAddDZmV4qOx9W53B61PO7cIqWz2dQsWlwswuq4mr8NEwytdGKboYbQlGZ3awrkTeNvcZiZNHnQ8A=="],
 
     "prelude-ls": ["prelude-ls@1.2.1", "", {}, "sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g=="],
+
+    "prettier": ["prettier@3.9.6", "", { "bin": { "prettier": "bin/prettier.cjs" } }, "sha512-OpN0zzVdiaiAhxpuuj5efpIS4sY9j7bY6uR5mnj5yPzGkdkjNKSJeUThPb60Jw29QuAZgA4o+/iB49kFiaBX6g=="],
 
     "pretty-ms": ["pretty-ms@9.3.1", "", { "dependencies": { "parse-ms": "^4.0.0" } }, "sha512-HzMy3Geq23nVALD/M2LliU+F+M+gVNsvkQWWqeBZ8HDiCgzo6YPJ/Omrmtq24EFrIsk0a3EkQGEd7bDOo+IhGA=="],
 
